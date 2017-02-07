@@ -1,8 +1,9 @@
 <h1>
   {{title}}
 </h1>
+<button (click)="getLocationData()">Get location $ids</button>
 <ul>
-  <li class="text" *ngFor="let product of products">
-    {{product.$key}}
+  <li class="text" *ngFor="let location of locations">
+    {{location.$key}}
   </li>
 </ul>
