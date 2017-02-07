@@ -1,23 +1,32 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {TestBed, async} from '@angular/core/testing';
+import {AppComponent} from './app.component';
+import {AngularFire, AngularFireModule} from 'angularfire2';
+import {firebaseConfig} from './firebase.config';
 
-describe('AppComponent', () => {
+describe('AppComponent: geofire simple exemple', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      providers: [
+        AngularFire
+      ],
+      imports: [
+        AngularFireModule.initializeApp(firebaseConfig)
+      ]
     });
     TestBed.compileComponents();
   });
 
-  it('should create the app', async(() => {
+  it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
+    fixture.detectChanges();
     expect(app).toBeTruthy();
-  }));
+  });
 
   it(`should have as title 'app works!'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);

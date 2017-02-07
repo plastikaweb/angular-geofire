@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
-import {AngularFire} from "angularfire2";
-import * as Geofire from "geofire";
+import {Component, OnInit} from '@angular/core';
+import {AngularFire} from 'angularfire2';
+import * as Geofire from 'geofire';
 
 @Component({
   selector: 'app-root',
