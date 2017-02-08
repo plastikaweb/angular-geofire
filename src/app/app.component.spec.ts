@@ -1,43 +1,34 @@
 /* tslint:disable:no-unused-variable */
 
-import {TestBed, async} from '@angular/core/testing';
 import {AppComponent} from './app.component';
-import {AngularFire, AngularFireModule} from 'angularfire2';
-import {firebaseConfig} from './firebase.config';
+import {FirebaseService} from './firebase.service';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/from';
+
 
 describe('AppComponent: geofire simple exemple', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-      providers: [
-        AngularFire
-      ],
-      imports: [
-        AngularFireModule.initializeApp(firebaseConfig)
-      ]
+
+    let component: AppComponent;
+    let service: FirebaseService;
+
+
+    beforeEach(() => {
+        service = new FirebaseService(null);
+        component = new AppComponent(service);
     });
-    TestBed.compileComponents();
-  });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    fixture.detectChanges();
-    expect(app).toBeTruthy();
-  });
+    it('should render list', () => {
+        let locations = [
+            {g: 'xxxx', $key: 'tttt'},
+            {g: 'dddd', $key: 'rrrr'},
+            {g: 'ssss', $key: 'hhhh'}
+        ];
 
-  it(`should have as title 'geofire app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('geofire app');
-  }));
+        spyOn(service, 'getLocations').and.callFake(() => {
+            return Observable.from([locations]);
+        });
+        component.ngOnInit();
+        expect(component.locations).toBe(locations);
 
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('geofire app');
-  }));
+    });
 });

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {AngularFireModule} from 'angularfire2';
 import {firebaseConfig} from "./firebase.config";
+import {FirebaseService} from './firebase.service';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import {firebaseConfig} from "./firebase.config";
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [],
+  providers: [FirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
