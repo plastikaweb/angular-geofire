@@ -4,31 +4,55 @@ import {AppComponent} from './app.component';
 import {FirebaseService} from './firebase.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
+import {ComponentFixture, TestBed, inject, async} from '@angular/core/testing';
+import {AngularFireDatabase, AngularFireModule} from 'angularfire2';
+import {firebaseConfig} from './firebase.config';
+import {MockBackend} from '@angular/http/testing';
 
 
 describe('AppComponent: geofire simple exemple', () => {
 
     let component: AppComponent;
     let service: FirebaseService;
-
+    let fixture: ComponentFixture<AppComponent>;
 
     beforeEach(() => {
-        service = new FirebaseService(null);
-        component = new AppComponent(service);
+        TestBed.configureTestingModule({
+            declarations: [AppComponent],
+            providers: [
+                MockBackend,
+                {provide: FirebaseService, useClass: MockBackend}
+            ]
+        });
+        fixture = TestBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
     });
 
-    it('should render list', () => {
+    beforeEach(inject([FirebaseService], (fs: FirebaseService) => {
+        service = fs;
+    }));
+
+    it('should have a defined component', () => {
+        expect(component).toBeDefined();
+    });
+
+    it('should render list', async(() => {
         let locations = [
             {g: 'xxxx', $key: 'tttt'},
             {g: 'dddd', $key: 'rrrr'},
             {g: 'ssss', $key: 'hhhh'}
         ];
 
-        spyOn(service, 'getLocations').and.callFake(() => {
-            return Observable.from([locations]);
+        component.getData().subscribe(result => {
+           expect(result).toBe(locations);
         });
-        component.ngOnInit();
-        expect(component.locations).toBe(locations);
 
-    });
+
+    }));
+
+    // it('should add an item to the list', () => {
+    //     component.setLocationData();
+    //     fixture.detectChanges();
+    //     expect(component.locations.length).toBe(1);
+    // });
 });

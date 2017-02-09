@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import {AngularFireModule} from 'angularfire2';
 import {firebaseConfig} from "./firebase.config";
 import {FirebaseService} from './firebase.service';
+import {GeolocationService} from './geolocation.service';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import {FirebaseService} from './firebase.service';
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [FirebaseService],
+  providers: [GeolocationService, FirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

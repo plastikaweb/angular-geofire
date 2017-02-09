@@ -12,17 +12,8 @@ export class FirebaseService {
         return this.db.list('/locations');
     }
 
-    addLocation() {
-        if (typeof navigator !== 'undefined' && typeof navigator.geolocation !== 'undefined') {
-            console.log('Asking user to get their location');
-            navigator.geolocation.getCurrentPosition(this.geolocationCallback, this.errorHandler);
-        } else {
-            console.log('Your browser does not support the HTML5 Geolocation API, so this demo will not work.');
-        }
-    }
-
     // /* Callback method from the geolocation API which receives the current user's location */
-    private geolocationCallback = (location) => {
+    geolocationCallback = (location) => {
         const place: IPlace = {
             name: 'place 1',
             description: 'description for place 1',
@@ -49,17 +40,5 @@ export class FirebaseService {
             });
     };
 
-    /* Handles any errors from trying to get the user's current location */
-    private errorHandler = (error) => {
-      if (error.code === 1) {
-        console.log('Error: PERMISSION_DENIED: User denied access to their location');
-      } else if (error.code === 2) {
-        console.log('Error: POSITION_UNAVAILABLE: Network is down or positioning satellites cannot be reached');
-      } else if (error.code === 3) {
-        console.log('Error: TIMEOUT: Calculating the user location too took long');
-      } else {
-        console.log('Unexpected error code');
-      }
-    };
 
 }
