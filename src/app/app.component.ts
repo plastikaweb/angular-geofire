@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
                     console.log(location);
                     this.firebaseService.geolocationCallback(location);
                 },
-                (err) => console.error(err.message)
+                (err) => console.error(err)
             );
 
     }

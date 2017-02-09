@@ -45,7 +45,6 @@ export class GeolocationService {
             SUBJECT.error(GEOLOCATION_ERRORS.unsupportedBrowser);
         }
 
-        SUBJECT.complete();
         return SUBJECT.asObservable();
 
     }
